@@ -14,22 +14,30 @@ export class App extends React.Component {
     this.state = {
       query:'',
       data: '',
-      show:false,
-      status:''
+      status:'',
+      message:''
     }
   }
   getLocation = async (e)=> {
     e.preventDefault();
-    try {const url=`https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.query}&format=json`;
-    const reqData= await axios.get(url);
-    console.log(reqData);
+   
+    try {
+      const url=`https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.query}&format=json`;
+      const reqData= await axios.get(url);
+    
     this.setState({
       data:reqData.data[0],
       show:true,
       status:reqData.status
     })}
     catch(err) {
-console.log(err);
+     
+console.log(err.response.status);
+this.setState({
+  message:err.response.data.error,
+  status:err.response.status
+})
+console.log(this.state.status);
     }
   }
   updateData = (e)=>{
@@ -40,18 +48,19 @@ console.log(err);
   render() {
     return (
       <div>
-        <h1>City Explorer</h1>
-        <Form>
+        <h1 style={{textAlign:'center'}}>City Explorer</h1>
+        <Form className='form'>
   <Form.Group controlId="formBasicEmail" >
     
-    <Form.Control onChange={this.updateData} type="text" placeholder="Enter a city name" name='name' />
+    <Form.Control onChange={this.updateData} type="text" placeholder="Enter a city name" name='name' style={{textAlign:'center'}} />
   </Form.Group>
 
   <Button variant="primary" type="submit" onClick={this.getLocation}>
     Explore!
   </Button>
 </Form>
-{(Number(this.state.status)===200) ? <City query={this.state.query} data={this.state.data} show={this.state.show} />:null }
+{(Number(this.state.status)===200) ? <City query={this.state.query} data={this.state.data} show={this.state.show} />
+:(this.state.status!=='')? <Error  status={this.state.status} message={this.state.message}  />:null }
 
 
       </div>
@@ -61,7 +70,3 @@ console.log(err);
 }
 
 export default App
-
-
-
-

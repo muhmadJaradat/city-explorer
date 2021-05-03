@@ -1,3 +1,5 @@
+![](img/Untitled.jpg)
+
 # City explorer
 
 **Author**: Mohammad Jaradat
@@ -18,4 +20,5 @@ this application was built using ReactJs , React axios library and Locationiq AP
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
-[locationiq](https://locationiq.com/)
+
+**Enas batayneh**

@@ -7,7 +7,7 @@ export class City extends React.Component {
     render() {
         return (
             <div>
-                <Container >
+                <Container style={{marginTop:'80px'}} >
   <Row>
     <Col>
     <Card style={{ width: '18rem' }}>
@@ -18,7 +18,8 @@ export class City extends React.Component {
   </ListGroup>
 </Card>
     </Col>
-    <Col><Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.props.data.lat},${this.props.data.lon}&zoom=10&markers=size:small|color:red|${this.props.data.lat},${this.props.data.lon}`} fluid /></Col>
+    <Col><Image 
+    src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.props.data.lat},${this.props.data.lon}&zoom=10&markers=size:small|color:red|${this.props.data.lat},${this.props.data.lon}`} fluid /></Col>
   </Row>
 </Container>
             </div>

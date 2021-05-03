@@ -6,12 +6,10 @@ import Alert from 'react-bootstrap/Alert'
     render() {
         return (
             <div>
-                <Alert variant="danger"  dismissible>
-        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                <Alert variant="danger"  dismissible className='alert'>
+        <Alert.Heading>Code Status : {this.props.status}</Alert.Heading>
         <p>
-          Change this and that and try again. Duis mollis, est non commodo
-          luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-          Cras mattis consectetur purus sit amet fermentum.
+          Error: {this.props.message}
         </p>
       </Alert>
             </div>
