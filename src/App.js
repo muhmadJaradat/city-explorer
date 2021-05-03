@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import City from './component/City'
 import Error from './component/Alert'
 require('dotenv').config()
-let locationIqKey=process.env.LOCATIONIQ_KEY;
+let locationIqKey=process.env.REACT_APP_LOCATIONIQ_KEY;
 
 export class App extends React.Component {
   constructor(props) {
