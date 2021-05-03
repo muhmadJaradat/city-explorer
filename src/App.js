@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import City from './component/City'
 import Error from './component/Alert'
+require('dotenv').config()
+let locationIqKey=process.env.LOCATIONIQ_KEY;
 
 export class App extends React.Component {
   constructor(props) {
@@ -18,14 +20,17 @@ export class App extends React.Component {
   }
   getLocation = async (e)=> {
     e.preventDefault();
-    const url=`https://eu1.locationiq.com/v1/search.php?key=pk.2f919ae7e90e6f305a9071c9f154f32a&q=${this.state.query}&format=json`;
+    try {const url=`https://eu1.locationiq.com/v1/search.php?key=${locationIqKey}&q=${this.state.query}&format=json`;
     const reqData= await axios.get(url);
     console.log(reqData);
     this.setState({
       data:reqData.data[0],
       show:true,
       status:reqData.status
-    })
+    })}
+    catch(err) {
+console.log(err);
+    }
   }
   updateData = (e)=>{
     this.setState({
