@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import City from './component/City'
 import Error from './component/Alert'
+import Weather from './component/Weather'
 require('dotenv').config()
 
 
@@ -15,7 +16,9 @@ export class App extends React.Component {
       query:'',
       data: '',
       status:'',
-      message:''
+      message:'',
+      weatherData:'',
+      show:false,
     }
   }
   getLocation = async (e)=> {
@@ -27,24 +30,35 @@ export class App extends React.Component {
     
     this.setState({
       data:reqData.data[0],
-      show:true,
       status:reqData.status
     })}
     catch(err) {
-     
-console.log(err.response.status);
 this.setState({
   message:err.response.data.error,
   status:err.response.status
 })
-console.log(this.state.status);
+
     }
+    this.getWeather();
   }
   updateData = (e)=>{
     this.setState({
       query:e.target.value
     })
   }
+  getWeather=async ()=>{
+    
+    
+      const WeatherUrl = `http://localhost:3001/weather`
+      const reqWeatherData=await axios.get(WeatherUrl);
+this.setState({
+  weatherData:reqWeatherData.data,
+  show:true
+}) 
+
+  }
+
+
   render() {
     return (
       <div>
@@ -59,10 +73,12 @@ console.log(this.state.status);
     Explore!
   </Button>
 </Form>
-{(Number(this.state.status)===200) ? <City query={this.state.query} data={this.state.data} show={this.state.show} />
+{(Number(this.state.status)===200) ? <> <City query={this.state.query} data={this.state.data} show={this.state.show} /> </>
 :(this.state.status!=='')? <Error  status={this.state.status} message={this.state.message}  />:null }
 
-
+{
+  this.state.show && <Weather weatherData={this.state.weatherData}/>
+}
       </div>
   
     )
