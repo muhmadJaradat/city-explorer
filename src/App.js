@@ -49,7 +49,7 @@ this.setState({
   getWeather=async ()=>{
     
     
-      const WeatherUrl = `http://localhost:3001/weather`
+      const WeatherUrl = `${process.env.REACT_APP_SERVER}/weather`
       const reqWeatherData=await axios.get(WeatherUrl);
 this.setState({
   weatherData:reqWeatherData.data,
