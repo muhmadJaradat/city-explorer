@@ -7,3 +7,21 @@
 .form {
 text-align: center;
 }
+.movieDes {
+  height:90px;
+  overflow:scroll;
+  text-align: center;
+  
+}
+.movieDes::-webkit-scrollbar {
+  display: none;
+}
+.movieDes {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.movieDes span {
+  margin-left: 25%;
+  font-size: 24px;
+  font-weight: 400;
+}

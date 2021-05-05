@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import City from './component/City'
 import Error from './component/Alert'
 import Weather from './component/Weather'
+import Movie from'./component/Movie'
 require('dotenv').config()
 
 
@@ -18,19 +19,22 @@ export class App extends React.Component {
       status:'',
       message:'',
       weatherData:'',
-      show:false,
+      weatherShow:false,
+      movieShow:false,
+      movieData:'',
     }
   }
   getLocation = async (e)=> {
     e.preventDefault();
-   
+    
     try {
       const url=`https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.query}&format=json`;
       const reqData= await axios.get(url);
     
     this.setState({
       data:reqData.data[0],
-      status:reqData.status
+      status:reqData.status,
+      
     })}
     catch(err) {
 this.setState({
@@ -39,24 +43,39 @@ this.setState({
 })
 
     }
+    
     this.getWeather();
+    this.getMovie();
   }
   updateData = (e)=>{
     this.setState({
-      query:e.target.value
+      query:e.target.value,
     })
+  
   }
   getWeather=async ()=>{
     
     
-      const WeatherUrl = `${process.env.REACT_APP_SERVER}/weather`
+      const WeatherUrl = `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.data.lat}&lon=${this.state.data.lon}`
       const reqWeatherData=await axios.get(WeatherUrl);
 this.setState({
   weatherData:reqWeatherData.data,
-  show:true
+  weatherShow:true,
 }) 
 
   }
+  getMovie=async ()=>{
+    
+    console.log(this.state.city);
+    const movieUrl = `${process.env.REACT_APP_SERVER}/movie?query=${this.state.query}`
+    const reqMovieData=await axios.get(movieUrl);
+this.setState({
+movieData:reqMovieData.data,
+movieShow:true
+
+}) 
+
+}
 
 
   render() {
@@ -77,7 +96,10 @@ this.setState({
 :(this.state.status!=='')? <Error  status={this.state.status} message={this.state.message}  />:null }
 
 {
-  this.state.show && <Weather weatherData={this.state.weatherData}/>
+  this.state.weatherShow && <Weather weatherData={this.state.weatherData}/> 
+}
+{
+  this.state.movieShow && <Movie movieData={this.state.movieData}/>
 }
       </div>
   
