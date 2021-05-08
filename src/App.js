@@ -3,10 +3,10 @@ import React from 'react'
 import axios from 'axios';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import City from './component/City'
-import Error from './component/Alert'
-import Weather from './component/Weather'
-import Movie from'./component/Movie'
+import City from './components/City'
+import Error from './components/Alert'
+import Weather from './components/Weather/Weather'
+import Movies from'./components/Movie/Movies'
 require('dotenv').config()
 
 
@@ -99,7 +99,7 @@ movieShow:true
   this.state.weatherShow && <Weather weatherData={this.state.weatherData}/> 
 }
 {
-  this.state.movieShow && <Movie movieData={this.state.movieData}/>
+  this.state.movieShow && <Movies movieData={this.state.movieData}/>
 }
       </div>
   
